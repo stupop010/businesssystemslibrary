@@ -1,0 +1,50 @@
+---
+import { getCollection } from 'astro:content';
+import { CATEGORIES } from '../content.config';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Only published systems appear in the public index.
+const systems = (await getCollection('systems')).filter(
+  (s) => s.data.status === 'published',
+);
+
+// Group by category, preserving the taxonomy order.
+const byCategory = CATEGORIES.map((category) => ({
+  category,
+  items: systems
+    .filter((s) => s.data.category === category)
+    .sort((a, b) => a.data.title.localeCompare(b.data.title)),
+})).filter((group) => group.items.length > 0);
+---
+
+<BaseLayout
+  title="Business Systems Library"
+  description="A structured reference library explaining how businesses actually work — systems, SOPs, workflows, checklists, KPIs, and AI automation for service businesses."
+>
+  <p class="eyebrow">Reference Library</p>
+  <h1>How businesses actually work.</h1>
+  <p class="summary">
+    Practical operating systems, SOPs, workflows, checklists, KPIs, and
+    AI/automation opportunities for service businesses with 5–50 employees.
+  </p>
+
+  {
+    byCategory.length === 0 ? (
+      <p class="meta">No published systems yet.</p>
+    ) : (
+      byCategory.map((group) => (
+        <section class="cat">
+          <h2>{group.category}</h2>
+          <ul class="system-list">
+            {group.items.map((s) => (
+              <li>
+                <a href={`/systems/${s.id}/`}>{s.data.title}</a>
+                {s.data.summary && <div class="desc">{s.data.summary}</div>}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    )
+  }
+</BaseLayout>
