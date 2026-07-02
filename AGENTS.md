@@ -35,9 +35,19 @@ long-term business knowledge platform.
 
 ## Positioning
 
+Practical systems, SOPs, and automations for service businesses with 5-50
+employees. From first lead to final payment.
+
 Business Systems Library helps service businesses with 5-50 employees build
 better systems, improve operations, and grow through practical processes, SOPs,
 workflows, checklists, and AI automation.
+
+Short description: Business Systems Library is a structured reference for how
+service businesses actually run: the SOPs, workflows, checklists, KPIs, and AI
+automation opportunities that help 5-50 person teams operate more consistently.
+Every system follows the same practical format: what it is, why it matters, how
+to implement it, and how to measure it. Built to look up, reuse, and apply in
+real operations.
 
 Think:
 
@@ -177,6 +187,21 @@ Initial category map:
 Minimal, professional, clean, fast, and easy to navigate. It should feel like
 documentation and reference material rather than a blog or magazine.
 
+## Brand Voice
+
+Business Systems Library should sound clear, practical, specific, and calm. It
+should read like a well-made operations manual written by someone who
+understands service businesses.
+
+Use plain English, real roles, real steps, and real numbers. Prove authority
+through useful detail, not big claims.
+
+Use third person for reference content: "The dispatcher assigns the job..." Use
+first person only on homepage/About where needed: "We are mapping..."
+
+Avoid hype, guru language, filler, clever headlines, exclamation marks, and vague
+business words like "unlock," "transform," "world-class," or "game-changing."
+
 ## Success Metrics
 
 In year one, success is not primarily traffic. Judge it by:
@@ -189,3 +214,28 @@ In year one, success is not primarily traffic. Judge it by:
 ## Current Roadmap
 
 See `ROADMAP.md`. Current phase: Phase 1 - Foundation.
+
+## Technology Stack
+
+Current v1 stack is documented in `decisions/2026-06-29-tech-stack.md`.
+
+- Frontend: Astro + TypeScript
+- Content: Markdown/MDX in Git, schema-enforced with Astro Content Collections
+- Hosting: Cloudflare Pages
+- Search: Pagefind later, Algolia only if outgrown
+- Editing UI: Keystatic later if a visual editor is needed
+- Future app layer: Supabase, Stripe, and AI services only in later premium/AI phases
+
+Do not introduce Next.js, Vercel, Sanity, WordPress, Webflow, Ghost, or
+Notion-as-CMS unless the decision record is revisited. The current reasoning is:
+the core asset should stay portable in Git, the workflow is user + AI rather
+than a multi-editor newsroom, and the content schema should remain easy to
+evolve while the plumbing-company model is being proven.
+
+## Git Workflow
+
+Hard rule: always work on the `dev` branch. Never work directly on `main`, never
+merge into `main`, and never push the `main` branch.
+
+`main` is the deploy branch for Cloudflare Pages. Changes should be made on
+`dev`; only the user controls if and when anything reaches `main`.
